@@ -9,6 +9,8 @@
 
 Model Context Protocol (MCP) server for Atlassian products (Confluence and Jira). Supports both Cloud and Server/Data Center deployments.
 
+> This is the `ultimate-guitar/mcp-atlassian` fork. All installation instructions below pull from this fork (`https://github.com/ultimate-guitar/mcp-atlassian`) rather than the upstream `sooperset/mcp-atlassian` repository / `mcp-atlassian` PyPI package.
+
 https://github.com/user-attachments/assets/35303504-14c6-4ae4-913b-7c25ea511c3e
 
 <details>
@@ -28,14 +30,18 @@ Go to https://id.atlassian.com/manage-profile/security/api-tokens and create a t
 
 ### 2. Configure Your IDE
 
-Add to your Claude Desktop or Cursor MCP configuration:
+Add to your Claude Desktop or Cursor MCP configuration (this installs directly from the `ultimate-guitar/mcp-atlassian` fork via `uvx`):
 
 ```json
 {
   "mcpServers": {
     "mcp-atlassian": {
       "command": "uvx",
-      "args": ["mcp-atlassian"],
+      "args": [
+        "--from",
+        "git+https://github.com/ultimate-guitar/mcp-atlassian.git@main",
+        "mcp-atlassian"
+      ],
       "env": {
         "JIRA_URL": "https://your-company.atlassian.net",
         "JIRA_USERNAME": "your.email@company.com",
@@ -50,6 +56,18 @@ Add to your Claude Desktop or Cursor MCP configuration:
 ```
 
 > **Server/Data Center users**: Use `JIRA_PERSONAL_TOKEN` instead of `JIRA_USERNAME` + `JIRA_API_TOKEN`. See [Authentication](https://mcp-atlassian.soomiles.com/docs/authentication) for details.
+
+#### Alternative: install from the fork with `pip` / `pipx`
+
+```bash
+# pipx (recommended for CLI usage)
+pipx install git+https://github.com/ultimate-guitar/mcp-atlassian.git@main
+
+# or plain pip into a virtualenv
+pip install git+https://github.com/ultimate-guitar/mcp-atlassian.git@main
+```
+
+Then point your IDE's MCP config at the installed `mcp-atlassian` entry point instead of `uvx`.
 
 ### 3. Start Using
 
@@ -75,6 +93,8 @@ Documentation is also available in [llms.txt format](https://llmstxt.org/), whic
 | [HTTP Transport](https://mcp-atlassian.soomiles.com/docs/http-transport) | SSE, streamable-http, multi-user |
 | [Tools Reference](https://mcp-atlassian.soomiles.com/docs/tools-reference) | All Jira & Confluence tools |
 | [Troubleshooting](https://mcp-atlassian.soomiles.com/docs/troubleshooting) | Common issues & debugging |
+
+> Upstream docs are linked above. When installing from this fork, substitute `mcp-atlassian` references with `git+https://github.com/ultimate-guitar/mcp-atlassian.git@main` in any install command.
 
 ## Compatibility
 
